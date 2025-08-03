@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env
 
 export const connectDB = async () => {
-    const db = "mongodb+srv://ishang974:tNRQQJvGTXg1mmKV@cluster0.yxbze.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // MongoDB connection string
-    // const db = "mongodb+srv://ishan97:tNRQQJvGTXg1mmKV@cluster0.hb1tg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const db = process.env.MONGODB_URI;
     try {
-        const { connection } = await mongoose.connect(db); // No need for options
+        const { connection } = await mongoose.connect(db);
         console.log(`MongoDB Connected to ${connection.host}`);
     } catch (error) {
         console.error("MongoDB connection error:", error);
-        process.exit(1); // Exit the process if connection fails
+        process.exit(1);
     }
 };
+
